@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neon Coast Cover Studio — GTA-style cover art maker</title>
+<meta name="description" content="Turn any photo and caption into GTA-style cover art: multi-panel poster layouts, Vice City sunset and neon grades, exported as a PNG. Runs offline, photos never leave your machine.">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">★</span> Neon Coast <span class="brand-sub">Cover Studio</span></div>
+  <p class="tagline">Your photo + a caption → GTA-style cover art, as a PNG to share. Offline, free, no upload.</p>
+</header>
+
+<main class="app">
+  <section class="controls" aria-label="Cover controls">
+    <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Drop a photo here or click to choose one">
+      <strong>Drop a photo here</strong>
+      <span>or click to choose one — JPG or PNG, stays on your machine</span>
+      <input id="photo" type="file" accept="image/*" multiple hidden>
+    </div>
+
+    <div class="field">
+      <label for="caption">Caption</label>
+      <input id="caption" type="text" maxlength="40" value="Sunset Heist" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="subtitle">Subtitle script</label>
+      <input id="subtitle" type="text" maxlength="30" value="Neon Coast" autocomplete="off">
+    </div>
+
+    <div class="field">
+      <span class="label">Try a sample photo</span>
+      <div class="choices" id="samples"></div>
+    </div>
+
+    <div class="field">
+      <span class="label">Layout — the poster</span>
+      <div class="choices" id="layouts"></div>
+    </div>
+
+    <div class="field">
+      <span class="label">Grade — the sunset</span>
+      <div class="choices" id="grades"></div>
+    </div>
+
+    <div class="field">
+      <span class="label">Post size</span>
+      <div class="choices" id="sizes"></div>
+    </div>
+
+    <fieldset class="panel-box">
+      <legend id="panel-label">Panel 1 of 4</legend>
+      <div class="field">
+        <label for="panel-photo">Photo in this panel</label>
+        <select id="panel-photo"></select>
+        <button id="use-all" type="button" class="mini">Use for all panels</button>
+      </div>
+      <div class="field slider">
+        <label for="zoom">Zoom <output id="zoom-val">1.00×</output></label>
+        <input id="zoom" type="range" min="0.8" max="2.5" step="0.01" value="1">
+      </div>
+      <div class="field slider">
+        <label for="pan-x">Pan sideways <output id="pan-x-val">0%</output></label>
+        <input id="pan-x" type="range" min="-0.4" max="0.4" step="0.01" value="0">
+      </div>
+      <div class="field slider">
+        <label for="pan-y">Pan up / down <output id="pan-y-val">0%</output></label>
+        <input id="pan-y" type="range" min="-0.4" max="0.4" step="0.01" value="0">
+      </div>
+      <p class="hint">Click a panel in the preview to crop that one.</p>
+    </fieldset>
+
+    <fieldset class="toggles">
+      <legend>Finish</legend>
+      <label><input id="grain" type="checkbox" checked> Film grain</label>
+      <label><input id="vignette" type="checkbox" checked> Vignette</label>
+      <label><input id="badge" type="checkbox" checked> Badge ribbon</label>
+    </fieldset>
+
+    <button id="export" type="button" class="export">Export PNG</button>
+    <button id="export-all" type="button" class="export secondary">Export all 3 sizes</button>
+    <p id="status" role="status"></p>
+  </section>
+
+  <section class="preview" aria-label="Live cover preview">
+    <div class="stage-wrap">
+      <canvas id="stage" width="1080" height="1080" aria-label="The cover preview"></canvas>
+      <canvas id="overlay" width="1080" height="1080" aria-hidden="true"></canvas>
+    </div>
+    <p class="hint">Live preview — what you see is the PNG you export.</p>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Neon Coast Cover Studio · original art, lettering in Anton &amp; Pacifico (SIL Open Font License) · your photos never leave this browser.</p>
+</footer>
+
+<div id="selftest" hidden></div>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
